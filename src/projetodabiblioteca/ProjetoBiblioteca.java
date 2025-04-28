@@ -164,7 +164,7 @@ public class ProjetoBiblioteca {
             
             do{
                 
-                System.out.println("Verificando o status do livro.\nInforme o código do livro (Se deseja finalizar o empréstimo, digite 'sair'):");
+                System.out.println("Informe o código do livro (Se deseja finalizar o empréstimo, digite 'sair'):");
                 cod = entrada.nextLine();
                 
                 
