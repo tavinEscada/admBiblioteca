@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import basedados.Banco;
 import java.util.Scanner;
-import java.util.Vector;
+import java.util.ArrayList;
 import modelo.Cliente;
 import modelo.Emprestimo;
 import modelo.Livro;
@@ -15,17 +15,15 @@ public class ProjetoBiblioteca {
     //conferir!!!!!
     private static void consultaLivro() {
         Scanner entrada = new Scanner(System.in);
-        System.out.println("Informe o título do livro: ");
+        System.out.println("Informe o titulo do livro: ");
         String consulta = entrada.nextLine();
         
-        
         if(Banco.retornaLivroNome(consulta) == null){
-            System.out.println("Livro não encontrado.");
+            System.out.println("Livro nao encontrado.\n");
         }else{
             System.out.println(Banco.retornaLivroNome(consulta));
         }
-        
-          
+         
     }
     
     private static void cadastraLivro() {
@@ -33,7 +31,7 @@ public class ProjetoBiblioteca {
         
         System.out.println("----Cadastro de um novo livro----");
         
-        System.out.println("Informe título do livro:");
+        System.out.println("Informe titulo do livro:");
         String nomeLivro = entrada.nextLine();
         
         System.out.println("Informe a sinopse do livro:");
@@ -53,19 +51,17 @@ public class ProjetoBiblioteca {
         Livro livroBD;
         String cod;
         do{
-            System.out.println("Informe o código do livro:");
+            System.out.println("Informe o codigo do livro:");
             cod = entrada.nextLine();
             livroBD = Banco.retornaLivroCod(cod);
             
             if(livroBD != null){
-                System.err.println("O código já está cadastrado em outro livro.");
+                System.err.println("O codigo ja esta cadastrado em outro livro.");
             }
         }while(livroBD != null);
         
-        
         System.out.println("Informe a quantidade de livros:");
         int quant = entrada.nextInt();
-        //Boolean status = null;
         
         Boolean status = quant > 0;
         
@@ -80,7 +76,11 @@ public class ProjetoBiblioteca {
         Scanner entrada = new Scanner(System.in);
         
         System.out.println("---Cadastrando novo cliente---");
-        System.out.println("Digite:\n 1 - Cadastrar apenas por nome e CPF;\n 2 - Cadastrar  por nome, CPF, telefone e endereço");
+        System.out.println("""
+                           Digite:
+                            1 - Cadastrar apenas por nome e CPF;
+                            2 - Cadastrar  por nome, CPF, telefone e endere\u00e7o
+                            0 - Cancelar""");
         
         Cliente novoCliente = null;
         
@@ -121,6 +121,9 @@ public class ProjetoBiblioteca {
                 System.out.println("Cliente cadastrado com sucesso!!!\n");
                 
             }else{
+                if(opcao == 0){
+                    return;
+                }
                 System.out.println("Entrada inválida!!!");
             }
         }
@@ -133,11 +136,11 @@ public class ProjetoBiblioteca {
         Cliente c;
         
         do{
-            System.out.println("Informe o CPF do cliente: (Se deseja sair, digite 'sair')");
+            System.out.println("Informe o CPF do cliente: (Se deseja sair, digite 0)");
             String cpf = entrada.nextLine();
             
             
-            if(cpf.equalsIgnoreCase("sair")){
+            if(cpf.equals("0")){
                 System.out.println("");
                 return;
             }
@@ -145,11 +148,10 @@ public class ProjetoBiblioteca {
             
             c = Banco.retornaClienteCpf(cpf);
             
-            if(c != null){
-                System.out.println("Cliente encontrado.\n");
-                break;
-            }else{
+            if(c == null){
                 System.out.println("Cliente não encontrado.\n");
+            }else{
+                break;
             }
             
         }while(c == null);
@@ -164,11 +166,11 @@ public class ProjetoBiblioteca {
             
             do{
                 
-                System.out.println("Informe o código do livro (Se deseja finalizar o empréstimo, digite 'sair'):");
+                System.out.println("Informe o código do livro (Se deseja finalizar o empréstimo, digite 0):");
                 cod = entrada.nextLine();
                 
                 
-                if(cod.equalsIgnoreCase("sair")){
+                if(cod.equals("0")){
                     System.out.println("");
                     break;
                 }
@@ -176,10 +178,10 @@ public class ProjetoBiblioteca {
                 livroSelec = Banco.retornaLivroCod(cod);
                 
                 if(livroSelec != null){
-                    System.out.println("Livro encontrado.");
+                    //System.out.println("Livro encontrado.");
                     
                     if(livroSelec.getStatus() == true && livroSelec.getQuant() > 0 ){
-                        System.out.println("Livro disponível.\n");
+                        //System.out.println("Livro disponível.\n");
                         status = true;
                         livroSelec.decrementaLivro();
                         break;
@@ -197,9 +199,9 @@ public class ProjetoBiblioteca {
                     //break;
                 }
                 
-            }while(status == false && (!cod.equalsIgnoreCase("sair") || livroSelec == null));
+            }while(status == false && (!cod.equals("0") || livroSelec == null));
 
-            if(cod.equalsIgnoreCase("sair")){
+            if(cod.equals("0")){
                 break;
             }
             
@@ -231,10 +233,9 @@ public class ProjetoBiblioteca {
         Date diaEntrega = calendario.getTime();
         
         System.out.println("Empréstimo realizado com sucesso!");
-        System.out.println("\n**********************\n"+novoEmprestimo+"\n");
-        System.out.print("Data de entrega: "+formatoData.format(diaEntrega)+"\n**********************\n\n");
+        System.out.println("\n**********************\nLivros:\n"+novoEmprestimo);
+        System.out.println("Data de entrega: "+formatoData.format(diaEntrega)+"\n**********************\n");
         
-        //Banco.insertEmprestimo(novoEmprestimo);
         Banco.insertEmprestimo(novoEmprestimo);
         
     }
@@ -254,7 +255,7 @@ public class ProjetoBiblioteca {
         if(c != null){
             System.out.println("Cliente encontrado.");
             
-            Vector<Emprestimo> a = Banco.sellectAllEprestimos();
+            ArrayList<Emprestimo> a = Banco.sellectAllEprestimos();
             System.out.println("Empréstimos relacionados ao usuário (por livros): ");
             
             int cont = 0;
@@ -304,7 +305,6 @@ public class ProjetoBiblioteca {
         
         int escolha;
         do{
-            //observar o "textBlock"
             System.out.println("""
                                ----Menu da biblioteca----
                                Digite:
@@ -313,7 +313,7 @@ public class ProjetoBiblioteca {
                                 3 - Efetuar novo empr\u00e9stimo;
                                 4 - Efetuar devolu\u00e7\u00e3o de livro;
                                 5 - Cadastrar novo livro.
-                                Digite qualquer outro n\u00famero para fechar.""");
+                                0 - Fechar""");
             escolha = entrada.nextInt();
 
             switch(escolha){
@@ -326,13 +326,17 @@ public class ProjetoBiblioteca {
                 case 4 -> realizaDevolucao();
                     
                 case 5 -> cadastraLivro();
+                
+                case 0 -> {
+                    return;
+                }
                     
                 default -> {
-                    return;
+                    System.out.println("Entrada invalida.");
                 }
 
             }
-        }while(escolha < 6);
+        }while(escolha != 0);
     }
 
 }
