@@ -1,9 +1,7 @@
 package modelo;
 
 import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Emprestimo {
     
@@ -13,25 +11,25 @@ public class Emprestimo {
     
     
     //associações entre classes
-    private Vector <Livro> registroLivros;
+    private ArrayList <Livro> registroLivros;
     private Cliente cliente;
-    private Vector <Livro> carrinhoEmprestimo;
+    private ArrayList <Livro> carrinhoEmprestimo;
     
     
     //construtores
     public Emprestimo(Cliente leitor){
         this.cliente = leitor;
-        this.carrinhoEmprestimo = new Vector<>();
+        this.carrinhoEmprestimo = new ArrayList<>();
         
     }
     
-    public Emprestimo(Date dataI, Date dataF, String stat, Vector<Livro> registroLivros, Cliente cliente, Vector<Livro> carrinhoEmprestimo) {
+    public Emprestimo(Date dataI, Date dataF, String stat, ArrayList<Livro> registroLivros, Cliente cliente, ArrayList<Livro> carrinhoEmprestimo) {
         this.dataI = dataI;
         this.dataF = dataF;
         this.stat = stat;
         this.registroLivros = registroLivros;
         this.cliente = cliente;
-        this.carrinhoEmprestimo = new Vector<>();
+        this.carrinhoEmprestimo = new ArrayList<>();
     }
 
 
@@ -43,7 +41,7 @@ public class Emprestimo {
         this.stat = stat;
     }
 
-    public void setRegistroLivros(Vector<Livro> registroLivros) {
+    public void setRegistroLivros(ArrayList<Livro> registroLivros) {
         this.registroLivros = registroLivros;
     }
 
@@ -64,7 +62,7 @@ public class Emprestimo {
         return stat;
     }
 
-    public Vector<Livro> getRegistroLivros() {
+    public ArrayList<Livro> getRegistroLivros() {
         return registroLivros;
     }
 
@@ -78,6 +76,7 @@ public class Emprestimo {
     
     
     
+    @Override
     public String toString(){
         String retorno = "";
         

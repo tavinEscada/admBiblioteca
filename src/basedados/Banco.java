@@ -1,15 +1,15 @@
 package basedados;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import modelo.Cliente;
 import modelo.Emprestimo;
 import modelo.Livro;
 
 public class Banco {
     
-    private static Vector<Emprestimo> emprestimosBanco = new Vector<>();
-    private static Vector<Livro> livrosBanco = new Vector<>();
-    private static Vector<Cliente> clientesBanco = new Vector<>();
+    private static ArrayList<Emprestimo> emprestimosBanco = new ArrayList<>();
+    private static ArrayList<Livro> livrosBanco = new ArrayList<>();
+    private static ArrayList<Cliente> clientesBanco = new ArrayList<>();
     
     public static void iniciaBanco(){
         
@@ -29,22 +29,22 @@ public class Banco {
     }
     
     //SELECT * FROM Livro
-    public static Vector<Livro> selectAllLivros(){
+    public static ArrayList<Livro> selectAllLivros(){
         return livrosBanco;
     }
     
     //SELECT * FROM Cliente
-    public static Vector<Cliente> selectAllClientes(){
+    public static ArrayList<Cliente> selectAllClientes(){
         return clientesBanco;
     }
     
     //select * from emprestimo
-    public static Vector<Emprestimo> sellectAllEprestimos(){
+    public static ArrayList<Emprestimo> sellectAllEprestimos(){
         return emprestimosBanco;
     }
     
     public static Livro retornaLivroCod(String cod){
-        Vector<Livro> livroEstoque = selectAllLivros();
+        ArrayList<Livro> livroEstoque = selectAllLivros();
         
         for(Livro li : livroEstoque){
             if(li.getCod().equals(cod)){
@@ -56,7 +56,7 @@ public class Banco {
     
     public static Livro retornaLivroNome(String consulta){
         
-        Vector<Livro> livros = selectAllLivros();
+        ArrayList<Livro> livros = selectAllLivros();
         
         for(Livro l : livros){
             if(l.getNome().equalsIgnoreCase(consulta)){
@@ -68,7 +68,7 @@ public class Banco {
     
     
     public static Cliente retornaClienteCpf(String cpf){
-        Vector<Cliente> clienteBanco = selectAllClientes();
+        ArrayList<Cliente> clienteBanco = selectAllClientes();
         
         for(Cliente c : clienteBanco){
             if(c.getCpf().equals(cpf)){
@@ -97,7 +97,7 @@ public class Banco {
     
     public static void deletaEmprestimo(String cpf, int num){
         
-        Vector<Emprestimo> empsCliente = new Vector<>();
+        ArrayList<Emprestimo> empsCliente = new ArrayList<>();
         
         for(int i = 0; i < emprestimosBanco.size(); i++){
             

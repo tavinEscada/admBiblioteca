@@ -82,17 +82,14 @@ public class Livro {
         this.quant--;
     }
     
+    @Override
     public String toString(){
-        String resultado = "";
         
-       
-        resultado += "Nome: "+this.nome + "\nSinopse: "+this.sinopse+"\nAutor: "+this.autor+
-                "\nEditora "+this.editora+"\nAno de lançamento: "+this.anoLanc+"\nCódigo: "+this.cod+"\nQuant: "+this.quant+"\nStatus: ";
+        String disponibilidade = this.status ? "Disponível.\n":"Indisponível.\n";
         
-        
-        String name = this.status ? "Disponível.\n":"Indisponível.\n";
-        
-        resultado+=name;
+        String resultado = "Nome: " + this.nome + "\nSinopse: " + this.sinopse + "\nAutor: " + this.autor +
+                "\nEditora " + this.editora + "\nAno de lançamento: " + this.anoLanc + "\nCódigo: " + 
+                this.cod + "\nQuant: " + this.quant + "\nStatus: " + disponibilidade;
         
         return resultado;
     }
