@@ -1,7 +1,7 @@
 package modelo;
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Emprestimo {
     
@@ -13,7 +13,7 @@ public class Emprestimo {
     //associações entre classes
     private ArrayList <Livro> registroLivros;
     private Cliente cliente;
-    private ArrayList <Livro> carrinhoEmprestimo;
+    private final ArrayList <Livro> carrinhoEmprestimo;
     
     
     //construtores

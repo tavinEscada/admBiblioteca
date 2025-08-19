@@ -1,22 +1,25 @@
 package projetodabiblioteca;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import basedados.Banco;
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
 import modelo.Cliente;
 import modelo.Emprestimo;
 import modelo.Livro;
 
 public class ProjetoBiblioteca {
     
+    private static final Scanner entrada = new Scanner(System.in);
+
     //conferir!!!!!
     private static void consultaLivro() {
-        Scanner entrada = new Scanner(System.in);
+        String consulta;
+        
         System.out.println("Informe o titulo do livro: ");
-        String consulta = entrada.nextLine();
+        consulta = entrada.nextLine();
         
         if(Banco.retornaLivroNome(consulta) == null){
             System.out.println("Livro nao encontrado.\n");
@@ -27,7 +30,6 @@ public class ProjetoBiblioteca {
     }
     
     private static void cadastraLivro() {
-        Scanner entrada = new Scanner(System.in);
         
         System.out.println("----Cadastro de um novo livro----");
         
@@ -68,29 +70,28 @@ public class ProjetoBiblioteca {
         Livro novoLivro = new Livro(nomeLivro, sinopse, editora, autor, ano, cod, quant, status);
         
         Banco.insertLivro(novoLivro);
+        
         System.out.println("Livro cadastrado com sucesso.");
     }
     
     public static void cadastraCliente(){
         
-        Scanner entrada = new Scanner(System.in);
-        
         System.out.println("---Cadastrando novo cliente---");
         System.out.println("""
-                           Digite:
+                            Digite:
                             1 - Cadastrar apenas por nome e CPF;
                             2 - Cadastrar  por nome, CPF, telefone e endere\u00e7o
                             0 - Cancelar""");
         
-        Cliente novoCliente = null;
+        Cliente novoCliente;
         
         int opcao = entrada.nextInt();
         
-        entrada.skip("\n");
+        entrada.nextLine();
         
         if(opcao == 1){
             System.out.println("Informe o nome do usuário:");
-           
+            
             String nome = entrada.nextLine();
         
             System.out.println("Informe o CPF:");
@@ -128,9 +129,8 @@ public class ProjetoBiblioteca {
             }
         }
     }
+
     public static void realizaEmprestimo(){
-        Scanner entrada = new Scanner(System.in);
-        
         System.out.println("---Realizando novo empréstimo---");
 
         Cliente c;
@@ -159,8 +159,8 @@ public class ProjetoBiblioteca {
         Emprestimo novoEmprestimo = new Emprestimo(c);
         
         String cod;
-        Boolean status = false;
-          
+        Boolean status;
+            
         Livro livroSelec = null;
         for(int cont = 0; cont < 3; cont++){
             
@@ -182,7 +182,7 @@ public class ProjetoBiblioteca {
                     
                     if(livroSelec.getStatus() == true && livroSelec.getQuant() > 0 ){
                         //System.out.println("Livro disponível.\n");
-                        status = true;
+                        //status = true;
                         livroSelec.decrementaLivro();
                         break;
                     }else{
@@ -220,11 +220,11 @@ public class ProjetoBiblioteca {
             novoEmprestimo.addLivroCarrinho(livroSelec);
             
             System.out.println("Cesto de livros do cliente: \n"+novoEmprestimo);
-               
+                
         }
-        Date agora = new Date();
+        //Date agora = new Date();
             
-        SimpleDateFormat dd = new SimpleDateFormat();
+        //SimpleDateFormat dd = new SimpleDateFormat();
             
         SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
             
@@ -241,9 +241,6 @@ public class ProjetoBiblioteca {
     }
     
     public static void realizaDevolucao(){
-        
-        Scanner entrada = new Scanner(System.in);
-        
         System.out.println("---Realizando devolução---");
         
         System.out.println("Informe o CPF do cliente: ");
@@ -288,10 +285,11 @@ public class ProjetoBiblioteca {
                 }
                 
             }while(status == false);
-                
+            
         }else{
             System.out.println("Cliente não encontrado.");
         }
+        
         
     }
     
@@ -300,21 +298,22 @@ public class ProjetoBiblioteca {
         //carregando exemplos
         Banco.iniciaBanco();
         
-        //iserir um menu para o bibliotecário
-        Scanner entrada = new Scanner(System.in);
         
         int escolha;
         do{
             System.out.println("""
-                               ----Menu da biblioteca----
-                               Digite:
+                                ----Menu da biblioteca----
+                                Digite:
                                 1 - Consultar um livro;
                                 2 - Cadastrar um cliente;
                                 3 - Efetuar novo empr\u00e9stimo;
                                 4 - Efetuar devolu\u00e7\u00e3o de livro;
                                 5 - Cadastrar novo livro.
                                 0 - Fechar""");
+
             escolha = entrada.nextInt();
+
+            entrada.nextLine();
 
             switch(escolha){
                 case 1 -> consultaLivro();
@@ -337,6 +336,7 @@ public class ProjetoBiblioteca {
 
             }
         }while(escolha != 0);
+        
     }
 
 }

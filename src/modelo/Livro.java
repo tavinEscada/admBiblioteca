@@ -93,6 +93,14 @@ public class Livro {
         
         return resultado;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
     
     
 }

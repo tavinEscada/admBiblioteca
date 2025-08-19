@@ -7,9 +7,9 @@ import modelo.Livro;
 
 public class Banco {
     
-    private static ArrayList<Emprestimo> emprestimosBanco = new ArrayList<>();
-    private static ArrayList<Livro> livrosBanco = new ArrayList<>();
-    private static ArrayList<Cliente> clientesBanco = new ArrayList<>();
+    private static final ArrayList<Emprestimo> emprestimosBanco = new ArrayList<>();
+    private static final ArrayList<Livro> livrosBanco = new ArrayList<>();
+    private static final ArrayList<Cliente> clientesBanco = new ArrayList<>();
     
     public static void iniciaBanco(){
         
