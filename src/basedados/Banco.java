@@ -1,6 +1,7 @@
 package basedados;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import modelo.Cliente;
 import modelo.Emprestimo;
 import modelo.Livro;
@@ -10,12 +11,13 @@ public class Banco {
     private static final ArrayList<Emprestimo> emprestimosBanco = new ArrayList<>();
     private static final ArrayList<Livro> livrosBanco = new ArrayList<>();
     private static final ArrayList<Cliente> clientesBanco = new ArrayList<>();
+    private static final Scanner entrada = new Scanner(System.in);
     
     public static void iniciaBanco(){
         
         //Realizando INSERTS dos Livros no BD
-        livrosBanco.add(new Livro("João e o pé de feijão", "fgjkdagkugdriuh", "Folha de S. Paulo", "Bolsonaro",1970,"111111", 2, true));
-        livrosBanco.add(new Livro("O pequeno Príncipe","dkgjfglk","CineLivro","Hebert Richard",2007,"222222", 0, false));
+        livrosBanco.add(new Livro("Joao e o pe de feijao", "fgjkdagkugdriuh", "Folha de S. Paulo", "Bolsonaro",1970,"111111", 2, true));
+        livrosBanco.add(new Livro("O pequeno Principe","dkgjfglk","CineLivro","Hebert Richard",2007,"222222", 0, false));
         
         //INSERTS dos clientes
         clientesBanco.add(new Cliente("Josenilda","756456794"));
@@ -117,5 +119,19 @@ public class Banco {
             
         }
         
+    }
+
+    public static void consultaLivro() {
+        String consulta;
+        
+        System.out.println("Informe o titulo do livro: ");
+        consulta = entrada.nextLine();
+        
+        if(Banco.retornaLivroNome(consulta) == null){
+            System.out.println("Livro nao encontrado.\n");
+        }else{
+            System.out.println(Banco.retornaLivroNome(consulta));
+        }
+         
     }
 }

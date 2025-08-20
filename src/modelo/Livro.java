@@ -1,7 +1,12 @@
 package modelo;
 
+import basedados.Banco;
+import java.util.Scanner;
+
 public class Livro {
     
+    private static Scanner entrada = new Scanner(System.in);
+
     //atributos
     private String nome;
     private String sinopse;
@@ -81,6 +86,53 @@ public class Livro {
     public void decrementaLivro(){
         this.quant--;
     }
+
+    public static void cadastraLivro() {
+        
+        System.out.println("----Cadastro de um novo livro----");
+        
+        System.out.println("Informe titulo do livro:");
+        String nomeLivro = entrada.nextLine();
+        
+        System.out.println("Informe a sinopse do livro:");
+        String sinopse = entrada.nextLine();
+        
+        System.out.println("Informe a editora:");
+        String editora = entrada.nextLine();
+        
+        System.out.println("Informe o nome do autor:");
+        String autor = entrada.nextLine();
+        
+        System.out.println("Informe o ano de lançamento:");
+        int ano = entrada.nextInt();
+        
+        entrada.skip("\n");
+        
+        Livro livroBD;
+        String cod;
+        do{
+            System.out.println("Informe o codigo do livro:");
+            cod = entrada.nextLine();
+            livroBD = Banco.retornaLivroCod(cod);
+            
+            if(livroBD != null){
+                System.err.println("O codigo ja esta cadastrado em outro livro.");
+            }
+        }while(livroBD != null);
+        
+        System.out.println("Informe a quantidade de livros:");
+        int quant = entrada.nextInt();
+        
+        Boolean status = quant > 0;
+        
+        Livro novoLivro = new Livro(nomeLivro, sinopse, editora, autor, ano, cod, quant, status);
+        
+        Banco.insertLivro(novoLivro);
+        
+        System.out.println("Livro cadastrado com sucesso.");
+    }
+
+
     
     @Override
     public String toString(){
