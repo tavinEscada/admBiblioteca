@@ -101,6 +101,7 @@ public class Emprestimo {
             if(c == null){
                 System.out.println("Cliente não encontrado.\n");
             }else{
+                System.out.println("Cliente encontrado: " + c);
                 break;
             }
             
@@ -109,7 +110,6 @@ public class Emprestimo {
         Emprestimo novoEmprestimo = new Emprestimo(c);
         
         String cod;
-        Boolean status;
             
         Livro livroSelec = null;
         for(int cont = 0; cont < 3; cont++){
@@ -122,7 +122,11 @@ public class Emprestimo {
                 
                 if(cod.equals("0")){
                     System.out.println("");
-                    break;
+                    if(cont == 0){
+                        return;
+                    }else{
+                        break;
+                    }
                 }
                 
                 livroSelec = Banco.retornaLivroCod(cod);
@@ -130,26 +134,19 @@ public class Emprestimo {
                 if(livroSelec != null){
                     //System.out.println("Livro encontrado.");
                     
-                    if(livroSelec.getStatus() == true && livroSelec.getQuant() > 0 ){
-                        //System.out.println("Livro disponível.\n");
-                        //status = true;
+                    if(livroSelec.getStatus() == true && livroSelec.getQuant() > 0){
                         livroSelec.decrementaLivro();
                         break;
                     }else{
                         System.out.println("Livro indisponível.\n");
-                        status = false;
                         cont--;
-                        
-                        //break; 
                     }
                     
                 }else{
                     System.out.println("Livro não encontrado.\n");
-                    status = false;
-                    //break;
                 }
                 
-            }while(status == false && (!cod.equals("0") || livroSelec == null));
+            }while(!cod.equals("0") || livroSelec == null);
 
             if(cod.equals("0")){
                 break;
@@ -243,8 +240,6 @@ public class Emprestimo {
         
     }
     
-    
-    
     @Override
     public String toString(){
         String retorno = "";
@@ -253,8 +248,6 @@ public class Emprestimo {
             Livro livroTemp = this.carrinhoEmprestimo.get(i);
             
             String infLivro = livroTemp.getNome() + ";";
-            
-            
             
             retorno = retorno + infLivro + "\n";
         }

@@ -84,7 +84,10 @@ public class Livro {
     }
     
     public void decrementaLivro(){
-        this.quant--;
+        this.setQuant(this.getQuant() - 1);
+        if(this.getQuant() <= 0){
+            setStatus(false);
+        }
     }
 
     public static void cadastraLivro() {
@@ -106,7 +109,7 @@ public class Livro {
         System.out.println("Informe o ano de lançamento:");
         int ano = entrada.nextInt();
         
-        entrada.skip("\n");
+        entrada.nextLine();
         
         Livro livroBD;
         String cod;

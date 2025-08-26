@@ -130,6 +130,7 @@ public class Banco {
         if(Banco.retornaLivroNome(consulta) == null){
             System.out.println("Livro nao encontrado.\n");
         }else{
+            System.out.println("\nLivro encontrado:");
             System.out.println(Banco.retornaLivroNome(consulta));
         }
          
