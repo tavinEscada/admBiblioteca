@@ -1,7 +1,6 @@
 package basedados;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import modelo.Cliente;
 import modelo.Emprestimo;
 import modelo.Livro;
@@ -11,7 +10,6 @@ public class Banco {
     private static final ArrayList<Emprestimo> emprestimosBanco = new ArrayList<>();
     private static final ArrayList<Livro> livrosBanco = new ArrayList<>();
     private static final ArrayList<Cliente> clientesBanco = new ArrayList<>();
-    private static final Scanner entrada = new Scanner(System.in);
     
     public static void iniciaBanco(){
         
@@ -121,18 +119,4 @@ public class Banco {
         
     }
 
-    public static void consultaLivro() {
-        String consulta;
-        
-        System.out.println("Informe o titulo do livro: ");
-        consulta = entrada.nextLine();
-        
-        if(Banco.retornaLivroNome(consulta) == null){
-            System.out.println("Livro nao encontrado.\n");
-        }else{
-            System.out.println("\nLivro encontrado:");
-            System.out.println(Banco.retornaLivroNome(consulta));
-        }
-         
-    }
 }
